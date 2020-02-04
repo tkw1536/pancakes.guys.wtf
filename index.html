@@ -1,51 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Pancakes Guys</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pancakes. Guys, wtf?</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="skeleton.css">
+    <style>
+        span.ingredient {
+            color: red;
+        }
+
+        span.amount {
+            color: blue;
+        }
+    </style>
 </head>
 
 <body>
-<p>
-<ul>
+    <div class="container">
+        <div class="row">
+            <div class="twelve column">
+                <h1>Ingredients</h1>
 
-<li>
-125g flour
-</li>
+                <ul>
+                    <li>
+                        <span class="amount">125 g</span> <span class="ingredient">flour</span>
+                    </li>
 
-<li>
-2 tblsp. sugar
-</li>
+                    <li>
+                        <span class="amount">2 tblsp.</span> <span class="ingredient">sugar</span>
+                    </li>
 
-<li>
-Half a teasp. of salt
-</li>
+                    <li>
+                        <span class="amount">Half a teasp.</span> of <span class="ingredient">salt</span>
+                    </li>
 
-<li>
-Half a package of baking powder
-</li>
+                    <li>
+                        <span class="amount">Half a package</span> of <span class="ingredient">baking powder</span>
+                    </li>
 
-<li>
-Half a package of vanilla sugar
-</li>
+                    <li>
+                        <span class="amount">Half a package</span> of <span class="ingredient">vanilla sugar</span>
+                    </li>
+                    <li>
+                        <span class="amount">&asymp; 250 ml</span> of <span class="ingredient">milk</span>
+                    </li>
+                </ul>
 
+                <h1>Recipe</h1>
 
-<li>
-&asymp; 250 ml of non-dairy milk
-</li>
+                <ul>
+                    <li>Combine dry ingredients, add wet ingredient, whisk until smooth, let rest for 10 minutes.</li>
+                    <li>Bake in non-stick pan. </li>
+                </ul>
 
+                <h1>Notes</h1>
 
-</ul>
-</p>
-
-<p>
-Combine dry ingredients, add wet ingredient, whisk until smooth, let rest for 10 minutes.
-</p>
-
-<p>
-Bake in non-stick pan.
-</p>
-
-
+                <ul>
+                    <li><span class="amount">1 package</span> of baking powder &asymp; <span class="amount">20 ml</span>. </li>
+                    <li><span class="amount">1 package</span> of vanilla sugar &asymp; <span class="amount">5 tblsp</span>. </li>
+                    <li>When <span class="ingredient">vanilla sugar</span> is not available, use either <span class="ingredient">(normal) sugar</span> or <span class="ingredient">(normal) sugar and vanilla extract</span>. </li>
+                    <li>For a vegan variant, replace <span class="ingredient">milk</span> with <span class="ingredient">non-dairy</span> milk. </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
