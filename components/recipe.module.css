@@ -1,0 +1,12 @@
+.ingredient {
+    color: red;
+}
+
+.amount {
+    color: blue;
+}
+
+.preview {
+    max-width: 100%;
+    box-sizing: border-box; 
+}
