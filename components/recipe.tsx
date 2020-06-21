@@ -99,7 +99,6 @@ class Ingredients extends React.Component<RecipeParams> {
                     </ul>
                 </div>
                 <div className="six columns">
-                    <br />
                     <figure>
                         <img className={style.preview} src="/pancakes.jpeg" alt={title} title={title}/>
                         <figcaption><small>{title}</small></figcaption>

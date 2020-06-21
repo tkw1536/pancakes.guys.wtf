@@ -1,15 +1,6 @@
 import * as React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-const trackingCode = "UA-159220391-1";
-const analyticsURL = "https://www.googletagmanager.com/gtag/js?id=" + trackingCode;
-const analyticsCode = `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', ${JSON.stringify(trackingCode)});
-`.replace(/\s+/g, ' ');
-
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -20,8 +11,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <script async src={analyticsURL}></script>
-          <script dangerouslySetInnerHTML={{__html: analyticsCode}} />
+        <script async src="https://track.everyone.wtf/tracker.js" data-ackee-server="https://track.everyone.wtf" data-ackee-domain-id="4923a22a-91ff-45af-ab78-bd726543b3e0"></script>
         </Head>
         <body>
           <Main />
