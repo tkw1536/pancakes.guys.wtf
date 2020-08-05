@@ -1,8 +1,11 @@
 import * as React from 'react';
-import Recipe from '../components/recipe';
+import Recipe, { RecipeHeader } from '../components/recipe';
 
 export default class Home extends React.Component {
   render() {
-    return <Recipe units='metric' />
+    return <>
+      <RecipeHeader url='https://pancakes.guys.wtf/metric' variant='metric'/>
+      <Recipe variant='metric' />
+    </>
   }
 }

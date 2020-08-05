@@ -3,10 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import style from './recipe.module.css';
 
-type Units = 'metric' | 'us';
+type Variant = 'metric' | 'us';
 
 interface RecipeParams {
-    units: Units;
+    variant: Variant;
 }
 
 interface TIngredient {
@@ -64,31 +64,66 @@ const ingredients: TIngredient[] = [
 
 export default class Recipe extends React.Component<RecipeParams> {
     render() {
-        const { units } = this.props;
+        const { variant: units } = this.props;
         return <>
-            <Head>
-                <title>
-                    Pancakes. Guys, wtf?
-                </title>
-            </Head>
-
-            <Ingredients units={units} />
-            <Notes units={units} />
+            <Ingredients variant={units} />
+            <Notes variant={units} />
         </>;
+    }
+}
+
+function pageTitle(variant?: Variant) {
+    return `Pancakes, served with ${variant !== 'us' ? 'maple ' : ''}syrup. `;
+}
+
+export class RecipeHeader extends React.Component<{url: string, variant?: Variant}> {
+    render() {
+        const { url, variant } = this.props;
+        const title = pageTitle(variant);
+        const description = 'A recipe for ' +  title[0].toLowerCase() + title.substring(1);
+        const image = 'https://pancakes.guys.wtf/pancakes.jpeg';
+
+        return <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+                <meta name="og:url" content={url} />
+                <meta property="twitter:url" content={url} />
+
+                <title>{title}</title>
+
+                <meta itemProp="name" content={title} />
+                <meta name="og:title" content={title} />
+                <meta property="twitter:title" content={title} />
+
+                <meta name="description" content={description} />
+                <meta itemProp="description" content={description} />
+                <meta name="og:description" content={description} />
+                <meta name="og:site_name" content={description} />
+                <meta property="twitter:description" content={description} />
+
+                <meta name="image" content={image} />
+                <meta itemProp="image" content={image} />
+                <meta name="og:image" content={image} />
+                <meta property="twitter:image" content={image} />
+
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta name="og:type" content="website" />
+        </Head>
     }
 }
 
 class Ingredients extends React.Component<RecipeParams> {
     render() {
-        const { units } = this.props;
-        const title = `Pancakes, served with ${units === 'metric' ? 'maple ' : ''}syrup. `;
+        const { variant } = this.props;
+        const title = pageTitle(variant);
+        
         return <>
             <div className="row">
                 <div className="six columns">
                     <h1>Ingredients</h1>
 
                     <ul>
-                        {ingredients.map((ingredient, index) => <Ingredient {...ingredient} units={units} key={index} />)}
+                        {ingredients.map((ingredient, index) => <Ingredient {...ingredient} units={variant} key={index} />)}
                     </ul>
 
                     <h1>Recipe</h1>
@@ -110,7 +145,7 @@ class Ingredients extends React.Component<RecipeParams> {
 }
 
 interface IngredientParams extends TIngredient {
-    units: Units;
+    units: Variant;
 }
 
 class Ingredient extends React.Component<IngredientParams> {
@@ -127,7 +162,7 @@ class Ingredient extends React.Component<IngredientParams> {
 
 class Notes extends React.Component<RecipeParams> {
     render() {
-        const { units } = this.props;
+        const { variant: units } = this.props;
         return <>
             <h1>Notes</h1>
 

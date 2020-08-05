@@ -1,10 +1,11 @@
 import * as React from 'react';
 import Router from 'next/router';
+import { RecipeHeader } from "../components/recipe";
 
 export default class Home extends React.Component {
   componentDidMount() {
     // quick and dirty check if the user is in the states
-    if(window.navigator.language !== 'en-US')
+    if(window?.navigator?.language !== 'en-US')
       Router.replace('/metric', '/metric');
     
     // the us needs their units
@@ -12,6 +13,6 @@ export default class Home extends React.Component {
       Router.replace('/us', '/us');
   }
   render() {
-    return null;
+    return <RecipeHeader url="https://pancakes.guys.wtf/" />;
   }
 }
