@@ -9,7 +9,7 @@
     "deploy": "yarn build && push-dir --dir=out --branch=gh-pages"
   },
   "dependencies": {
-    "next": "9.4.2",
+    "next": "9.5.1",
     "push-dir": "^0.4.1",
     "react": "16.13.1",
     "react-dom": "16.13.1"
