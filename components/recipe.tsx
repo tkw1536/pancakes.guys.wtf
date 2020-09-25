@@ -2,6 +2,7 @@ import * as React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import style from './recipe.module.css';
+import Book from "./book";
 
 type Variant = 'metric' | 'us';
 
@@ -62,85 +63,39 @@ const ingredients: TIngredient[] = [
     },
 ];
 
-export default class Recipe extends React.Component<RecipeParams> {
-    render() {
-        const { variant: units } = this.props;
-        return <>
-            <Ingredients variant={units} />
-            <Notes variant={units} />
-        </>;
-    }
-}
-
 function pageTitle(variant?: Variant) {
     return `Pancakes, served with ${variant !== 'us' ? 'maple ' : ''}syrup. `;
 }
 
-export class RecipeHeader extends React.Component<{url: string, variant?: Variant}> {
-    render() {
-        const { url, variant } = this.props;
-        const title = pageTitle(variant);
-        const description = 'A recipe for ' +  title[0].toLowerCase() + title.substring(1);
-        const image = 'https://pancakes.guys.wtf/pancakes.jpeg';
-
-        return <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-                <meta name="og:url" content={url} />
-                <meta property="twitter:url" content={url} />
-
-                <title>{title}</title>
-
-                <meta itemProp="name" content={title} />
-                <meta name="og:title" content={title} />
-                <meta property="twitter:title" content={title} />
-
-                <meta name="description" content={description} />
-                <meta itemProp="description" content={description} />
-                <meta name="og:description" content={description} />
-                <meta name="og:site_name" content={description} />
-                <meta property="twitter:description" content={description} />
-
-                <meta name="image" content={image} />
-                <meta itemProp="image" content={image} />
-                <meta name="og:image" content={image} />
-                <meta property="twitter:image" content={image} />
-
-                <meta property="twitter:card" content="summary_large_image" />
-                <meta name="og:type" content="website" />
-        </Head>
-    }
-}
-
-class Ingredients extends React.Component<RecipeParams> {
+export default class Recipe extends React.Component<RecipeParams> {
     render() {
         const { variant } = this.props;
         const title = pageTitle(variant);
         
-        return <>
-            <div className="row">
-                <div className="six columns">
-                    <h1>Ingredients</h1>
+        return <Book>
+            <>
+                <h1>Ingredients</h1>
 
-                    <ul>
-                        {ingredients.map((ingredient, index) => <Ingredient {...ingredient} units={variant} key={index} />)}
-                    </ul>
+                <ul>
+                    {ingredients.map((ingredient, index) => <Ingredient {...ingredient} units={variant} key={index} />)}
+                </ul>
 
-                    <h1>Recipe</h1>
+                <h1>Recipe</h1>
 
-                    <ul>
-                        <li>Combine dry ingredients, add wet ingredient, whisk until smooth, let rest for 10 minutes.</li>
-                        <li>Bake in non-stick pan. </li>
-                    </ul>
-                </div>
-                <div className="six columns">
-                    <figure>
-                        <img className={style.preview} src="/pancakes.jpeg" alt={title} title={title}/>
-                        <figcaption><small>{title}</small></figcaption>
-                    </figure>
-                </div>
-            </div>
-        </>;
+                <ul>
+                    <li>Combine dry ingredients, add wet ingredient, whisk until smooth, let rest for 10 minutes.</li>
+                    <li>Bake in non-stick pan. </li>
+                </ul>
+
+                <Notes variant={variant} />
+            </>
+            <>
+                <figure>
+                    <img className={style.preview} src="/pancakes.jpeg" alt={title} title={title}/>
+                    <figcaption><small>{title}</small></figcaption>
+                </figure>
+            </>
+        </Book>;
     }
 }
 
@@ -190,5 +145,41 @@ class Notes extends React.Component<RecipeParams> {
                 </li>
             </ul>
         </>
+    }
+}
+
+export class RecipeHeader extends React.Component<{url: string, variant?: Variant}> {
+    render() {
+        const { url, variant } = this.props;
+        const title = pageTitle(variant);
+        const description = 'A recipe for ' +  title[0].toLowerCase() + title.substring(1);
+        const image = 'https://pancakes.guys.wtf/pancakes.jpeg';
+
+        return <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+                <meta name="og:url" content={url} />
+                <meta property="twitter:url" content={url} />
+
+                <title>{title}</title>
+
+                <meta itemProp="name" content={title} />
+                <meta name="og:title" content={title} />
+                <meta property="twitter:title" content={title} />
+
+                <meta name="description" content={description} />
+                <meta itemProp="description" content={description} />
+                <meta name="og:description" content={description} />
+                <meta name="og:site_name" content={description} />
+                <meta property="twitter:description" content={description} />
+
+                <meta name="image" content={image} />
+                <meta itemProp="image" content={image} />
+                <meta name="og:image" content={image} />
+                <meta property="twitter:image" content={image} />
+
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta name="og:type" content="website" />
+        </Head>
     }
 }
