@@ -60,6 +60,13 @@ const ingredients: TIngredient[] = [
         ofUS: true,
         children: 'milk',
     },
+    {
+        metric: "100g",
+        ofMetric: false,
+        US: "1/2 cup",
+        ofUS: true,
+        children: "blueberries (optional)"
+    },
 ];
 
 export default class Recipe extends React.Component<RecipeParams> {
@@ -130,7 +137,7 @@ class Ingredients extends React.Component<RecipeParams> {
 
                     <ul>
                         <li>Combine dry ingredients, add wet ingredient, whisk until smooth, let rest for 10 minutes.</li>
-                        <li>Bake in non-stick pan. </li>
+                        <li>Bake in non-stick pan. If desired, add blueberries before first flipping.</li>
                     </ul>
                 </div>
                 <div className="six columns">
