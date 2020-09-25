@@ -186,7 +186,7 @@ class Notes extends React.Component<RecipeParams> {
                     When <span className={style.ingredient}>vanilla sugar</span> is not available, use either <span className={style.ingredient}>(normal) sugar</span> or <span className={style.ingredient}>(normal) sugar and vanilla extract</span>.
                 </li>
                 <li>
-                    For a vegan variant, replace <span className={style.ingredient}>milk</span> with <span className={style.ingredient}>non-dairy</span> milk.
+                    For a vegan variant, replace <span className={style.ingredient}>milk</span> with <span className={style.ingredient}>non-dairy</span> milk. We recommend using <a target ="_blank" href="https://www.oatly.com/int/products/oat-drink-barista-edition">Oatly Barista edition</a>.
                 </li>
             </ul>
         </>
