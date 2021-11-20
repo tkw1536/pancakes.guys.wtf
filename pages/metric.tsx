@@ -3,9 +3,6 @@ import Recipe, { RecipeHeader } from '../components/recipe';
 
 export default class Home extends React.Component {
   render() {
-    return <>
-      <RecipeHeader url='https://pancakes.guys.wtf/metric' variant='metric'/>
-      <Recipe variant='metric' />
-    </>
+    return <Recipe url='https://pancakes.guys.wtf/metric' variant={{units: 'metric'}} />;
   }
 }

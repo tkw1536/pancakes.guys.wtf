@@ -3,11 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import style from './recipe.module.css';
 
-type Variant = 'metric' | 'us';
-
-interface RecipeParams {
-    variant: Variant;
+interface Variant {
+    units: 'metric' | 'us';
 }
+
 
 interface TIngredient {
     metric: string;
@@ -69,21 +68,30 @@ const ingredients: TIngredient[] = [
     },
 ];
 
-export default class Recipe extends React.Component<RecipeParams> {
+export default class RecipePage extends React.Component<{ variant: Variant; url: string }> {
     render() {
-        const { variant: units } = this.props;
+        const { variant, url } = this.props;
         return <>
-            <Ingredients variant={units} />
-            <Notes variant={units} />
+            <RecipeHeader url='https://pancakes.guys.wtf/metric' variant={variant} />
+            <Recipe variant={variant} />
+        </>;
+    }
+}
+class Recipe extends React.Component<{ variant: Variant}> {
+    render() {
+        const { variant } = this.props;
+        return <>
+            <Ingredients variant={variant} />
+            <Notes variant={variant} />
         </>;
     }
 }
 
-function pageTitle(variant?: Variant) {
-    return `Pancakes, served with ${variant !== 'us' ? 'maple ' : ''}syrup. `;
+function pageTitle(variant: Variant) {
+    return `Pancakes, served with ${variant.units !== 'us' ? 'maple ' : ''}syrup. `;
 }
 
-export class RecipeHeader extends React.Component<{url: string, variant?: Variant}> {
+export class RecipeHeader extends React.Component<{url: string, variant: Variant}> {
     render() {
         const { url, variant } = this.props;
         const title = pageTitle(variant);
@@ -119,7 +127,7 @@ export class RecipeHeader extends React.Component<{url: string, variant?: Varian
     }
 }
 
-class Ingredients extends React.Component<RecipeParams> {
+class Ingredients extends React.Component<{ variant: Variant}> {
     render() {
         const { variant } = this.props;
         const title = pageTitle(variant);
@@ -130,7 +138,7 @@ class Ingredients extends React.Component<RecipeParams> {
                     <h1>Ingredients</h1>
 
                     <ul>
-                        {ingredients.map((ingredient, index) => <Ingredient {...ingredient} units={variant} key={index} />)}
+                        {ingredients.map((ingredient, index) => <Ingredient {...ingredient} variant={variant} key={index} />)}
                     </ul>
 
                     <h1>Recipe</h1>
@@ -152,31 +160,32 @@ class Ingredients extends React.Component<RecipeParams> {
 }
 
 interface IngredientParams extends TIngredient {
-    units: Variant;
+    variant: Variant;
 }
 
 class Ingredient extends React.Component<IngredientParams> {
     render() {
-        const { units, metric, ofMetric, US, ofUS, children } = this.props;
-        const of = units === 'metric' ? ofMetric : ofUS;
+        const { variant, metric, ofMetric, US, ofUS, children } = this.props;
+        const of = variant.units === 'metric' ? ofMetric : ofUS;
         return <li>
-            <span className={style.amount}>{units === 'metric' ? metric : US}</span>
+            <span className={style.amount}>{variant.units === 'metric' ? metric : US}</span>
             {of ? " of " : " "}
             <span className={style.ingredient}>{children}</span>
         </li>
     }
 }
 
-class Notes extends React.Component<RecipeParams> {
+class Notes extends React.Component<{ variant: Variant}> {
     render() {
-        const { variant: units } = this.props;
+        const { variant } = this.props;
+        const { units } = variant;
         return <>
             <h1>Notes</h1>
 
             <ul>
                 <li>
-                    <Link href={units === 'metric' ? '/us' : '/metric'}>
-                        <a>You can view this recipe in {units === 'metric' ? 'US' : 'metric'} units. </a>
+                    <Link href={variant.units === 'metric' ? '/us' : '/metric'}>
+                        <a>You can view this recipe in {variant.units === 'metric' ? 'US' : 'metric'} units. </a>
                     </Link>
                 </li>
                 {units === 'metric' &&

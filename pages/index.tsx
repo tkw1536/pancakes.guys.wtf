@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Router from 'next/router';
-import { RecipeHeader } from "../components/recipe";
+import RecipePage, { RecipeHeader } from "../components/recipe";
 
 export default class Home extends React.Component {
   componentDidMount() {
@@ -13,6 +13,6 @@ export default class Home extends React.Component {
       Router.replace('/us', '/us');
   }
   render() {
-    return <RecipeHeader url="https://pancakes.guys.wtf/" />;
+    return <RecipeHeader url="https://pancakes.guys.wtf/" variant={{units: 'metric'}} />;
   }
 }
