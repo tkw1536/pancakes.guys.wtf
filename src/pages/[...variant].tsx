@@ -25,7 +25,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const urls = AllVariantURLS();
     urls.push(...Array.from(Object.keys(VARIANT_REDIRECTS)));
     
-    const paths = urls.map(url => url.split("/")).map(variant => ({ params: { variant }}));
+    const paths = urls.filter(url => url !== '').map(url => url.split("/")).map(variant => ({ params: { variant }}));
 
     return {
         paths,
