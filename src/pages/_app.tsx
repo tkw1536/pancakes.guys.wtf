@@ -10,7 +10,7 @@ export default function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <footer>
         <small>
-          Website created by <i>Tom Wiesing</i>.
+          <a href="https://github.com/tkw1536/pancakes.guys.wtf" target="_blank" rel="noopener noreferer">Open-Source</a> Website created by <i><a href="https://tkw01536.de" target="_blank" rel="noopener noreferer">Tom Wiesing</a></i>.
           Thanks to <i>Katja Bercic</i>, <i>Sid Shukla</i> and <i>Leo Kuboschek</i> for contributing to the recipe.
           <ClientSideScript src='https://inform.everyone.wtf/legal.min.js' data-site-id={process.env.NEXT_ENV_PUBLIC_TRACKING_ID} />
         </small>
