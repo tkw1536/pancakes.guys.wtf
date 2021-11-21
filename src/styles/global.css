@@ -1,0 +1,14 @@
+body {
+    padding-top: 1rem;
+}
+footer {
+    border-top: 1px solid #E1E1E1;
+    padding-top: 1rem;
+}
+
+@media (max-width: 550px) {
+    .show-large { display: none }
+}
+@media (min-width: 550px) {
+    .hide-large { display: none }
+}

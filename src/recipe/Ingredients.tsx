@@ -10,7 +10,11 @@ interface RecipeIngredient {
     US: string;
     ofUS?: boolean;
 
-    children?: React.ReactNode
+    name?: React.ReactNode,
+    veganName?: React.ReactNode,
+
+    note?: React.ReactNode,
+    veganNote?: React.ReactNode,
 }
 
 const INGREDIENTS: RecipeIngredient[] = [
@@ -18,98 +22,138 @@ const INGREDIENTS: RecipeIngredient[] = [
         metric: '125 g',
         US: '1/2 cup',
         ofUS: true,
-        children: 'flour'
+        name: 'flour'
     },
     {
         metric: '2 tblsp.',
         US: '2 tblsp.',
         ofUS: true,
-        children: 'sugar'
+        name: 'sugar',
+    },
+    {
+        metric: '2',
+        US: '2',
+        name: 'eggs',
+        veganName: null,
     },
     {
         metric: 'Half a teasp.',
         US: 'Half a teasp.',
         ofUS: true,
         ofMetric: true,
-        children: 'salt'
+        name: 'salt'
     },
     {
         metric: 'Half a package',
         ofMetric: true,
         US: '1 tblsp.',
         ofUS: true,
-        children: 'baking powder',
+        name: 'baking powder',
     },
     {
         metric: 'Half a package.',
         ofMetric: true,
         US: '5 tblsp.',
         ofUS: true,
-        children: 'vanilla sugar',
+        name: 'vanilla sugar',
     },
     {
         metric: '≈ 250 ml',
         ofMetric: true,
         US: '≈ 1 cup',
         ofUS: true,
-        children: 'milk',
+        
+        name: 'milk',
+        veganName: 'non-dairy milk',
+
+        veganNote: <>(e.g. <a target ="_blank" rel="noopener noreferer" href="https://www.oatly.com/int/products/oat-drink-barista-edition">Oatly Barista edition</a>)</>
     },
     {
         metric: "100g",
         ofMetric: false,
         US: "1/2 cup",
         ofUS: true,
-        children: "blueberries (optional)"
+        name: "blueberries (optional)"
     },
 ];
 
-export default class Ingredients extends React.Component<{ variant: Variant}> {
+export default class Ingredients extends React.Component<{ variant: Variant }> {
     render() {
         const { variant } = this.props;
-        const title = VariantTitle(variant);
-        
+
+
+        const shortTitle = VariantTitle(variant, true);
+        const longTitle = VariantTitle(variant);
+
         return <>
+
+            <div className="row">
+                <div className="twelve columns">
+                    <h1>{shortTitle}</h1>
+
+                    <figure className="hide-large">
+                        <img className={style.preview} src="/pancakes.jpeg" alt={longTitle} title={longTitle} />
+                        <figcaption><small>{longTitle}</small></figcaption>
+                    </figure>
+                </div>
+            </div>
+
             <div className="row">
                 <div className="six columns">
-                    <h1>Ingredients</h1>
+                    <h2>Ingredients</h2>
 
                     <ul>
-                        {INGREDIENTS.map((ingredient, index) => <Ingredient {...ingredient} variant={variant} key={index} />)}
-                    </ul>
-
-                    <h1>Recipe</h1>
-
-                    <ul>
-                        <li>Combine dry ingredients, add wet ingredient, whisk until smooth, let rest for 10 minutes.</li>
-                        <li>Bake in non-stick pan. If desired, add blueberries before first flipping.</li>
+                        {INGREDIENTS.map((ingredient, index) => <Ingredient ingredient={ingredient} variant={variant} key={index} />)}
                     </ul>
                 </div>
-                <div className="six columns">
+                <div className="six columns show-large">
                     <figure>
-                        <img className={style.preview} src="/pancakes.jpeg" alt={title} title={title}/>
-                        <figcaption><small>{title}</small></figcaption>
+                        <img className={style.preview} src="/pancakes.jpeg" alt={longTitle} title={longTitle} />
+                        <figcaption><small>{longTitle}</small></figcaption>
                     </figure>
+                </div>
+            </div>
+            <div className="row">
+                <div className="twelve columns">
+
+                    <h2>Recipe</h2>
+
+                    <ul>
+                        <li>Combine dry ingredients, add wet ingredient{!variant.vegan && "s"}, whisk until smooth, let rest for 10 minutes.</li>
+                        <li>Bake in non-stick pan. If desired, add blueberries before first flipping.</li>
+                    </ul>
                 </div>
             </div>
         </>;
     }
 }
 
-interface IngredientParams extends RecipeIngredient {
+interface IngredientParams {
+    ingredient: RecipeIngredient;
     variant: Variant;
 }
 
 class Ingredient extends React.Component<IngredientParams> {
     render() {
-        const { variant, metric, ofMetric, US, ofUS, children } = this.props;
-        const { units } = variant;
+        const { variant: { units, vegan }, ingredient: { metric, ofMetric, US, ofUS, name, veganName, note, veganNote } } = this.props;
 
         const of = units === 'metric' ? ofMetric : ofUS;
         const amount = units === 'metric' ? metric : US;
+
+
+        const children = (vegan && (typeof veganName !== 'undefined')) ? veganName : name;
+        if (children === null) {
+            return null; // omitted in this mode
+        }
+
+        const noteChild = (vegan && (typeof veganNote !== 'undefined')) ? veganNote: note;
+
+
         return <li>
             <span className={style.amount}>{amount}</span>
             {of ? " of " : " "}
             <span className={style.ingredient}>{children}</span>
+            {noteChild && <>{` `}{noteChild}</>}
         </li>
     }
 }
