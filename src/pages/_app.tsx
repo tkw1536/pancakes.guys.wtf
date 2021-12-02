@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import '../styles/normalize.css';
-import '../styles/skeleton.css'
 import '../styles/global.css';
 
 export default function MyApp({ Component, pageProps }) {

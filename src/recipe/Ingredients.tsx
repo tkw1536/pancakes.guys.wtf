@@ -88,7 +88,7 @@ export default class Ingredients extends React.Component<{ variant: Variant }> {
         return <>
 
             <div className="row">
-                <div className="twelve columns">
+                <div className="full">
                     <h1>{shortTitle}</h1>
 
                     <figure className="hide-large">
@@ -99,14 +99,14 @@ export default class Ingredients extends React.Component<{ variant: Variant }> {
             </div>
 
             <div className="row">
-                <div className="six columns">
+                <div className="half">
                     <h2>Ingredients</h2>
 
                     <ul>
                         {INGREDIENTS.map((ingredient, index) => <Ingredient ingredient={ingredient} variant={variant} key={index} />)}
                     </ul>
                 </div>
-                <div className="six columns show-large">
+                <div className="half show-large">
                     <figure>
                         <img className={style.preview} src="/pancakes.jpeg" alt={longTitle} title={longTitle} />
                         <figcaption><small>{longTitle}</small></figcaption>
@@ -114,7 +114,7 @@ export default class Ingredients extends React.Component<{ variant: Variant }> {
                 </div>
             </div>
             <div className="row">
-                <div className="twelve columns">
+                <div className="full">
 
                     <h2>Recipe</h2>
 
