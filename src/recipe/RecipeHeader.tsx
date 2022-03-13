@@ -2,13 +2,13 @@ import * as React from "react";
 import Head from "next/head";
 import { default as Variant, VariantTitle, VariantToURL } from "./Variant";
 
-export class RecipeHeader extends React.Component<{root: string; url?: string; variant: Variant}> {
+export class RecipeHeader extends React.Component<{root: string; url?: string; variant: Variant, multiplier: number}> {
     render() {
-        const { root, url, variant } = this.props;
+        const { root, url, variant, multiplier } = this.props;
         const title = VariantTitle(variant);
         const description = 'A recipe for ' +  title[0].toLowerCase() + title.substring(1);
         
-        const pageURL = `${root}${url ?? VariantToURL(variant)}`;
+        const pageURL = `${root}${url ?? VariantToURL(variant, undefined, multiplier)}`;
         const imageURL = `${root}pancakes.jpeg`;
 
         return <Head>

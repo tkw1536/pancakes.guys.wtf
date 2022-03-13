@@ -2,84 +2,11 @@ import * as React from "react";
 import style from './index.module.css';
 
 import { default as Variant, VariantTitle } from "./Variant";
+import { RecipeIngredient, default as INGREDIENTS } from "./recipe";
 
-interface RecipeIngredient {
-    metric: string;
-    ofMetric?: boolean;
-
-    US: string;
-    ofUS?: boolean;
-
-    name?: React.ReactNode,
-    veganName?: React.ReactNode,
-
-    note?: React.ReactNode,
-    veganNote?: React.ReactNode,
-}
-
-const INGREDIENTS: RecipeIngredient[] = [
-    {
-        metric: '125 g',
-        US: '1/2 cup',
-        ofUS: true,
-        name: 'flour'
-    },
-    {
-        metric: '2 tblsp.',
-        US: '2 tblsp.',
-        ofUS: true,
-        name: 'sugar',
-    },
-    {
-        metric: '2',
-        US: '2',
-        name: 'eggs',
-        veganName: null,
-    },
-    {
-        metric: 'Half a teasp.',
-        US: 'Half a teasp.',
-        ofUS: true,
-        ofMetric: true,
-        name: 'salt'
-    },
-    {
-        metric: 'Half a package',
-        ofMetric: true,
-        US: '1 tblsp.',
-        ofUS: true,
-        name: 'baking powder',
-    },
-    {
-        metric: 'Half a package.',
-        ofMetric: true,
-        US: '5 tblsp.',
-        ofUS: true,
-        name: 'vanilla sugar',
-    },
-    {
-        metric: '≈ 250 ml',
-        ofMetric: true,
-        US: '≈ 1 cup',
-        ofUS: true,
-        
-        name: 'milk',
-        veganName: 'non-dairy milk',
-
-        veganNote: <>(e.g. <a target ="_blank" rel="noopener noreferer" href="https://www.oatly.com/int/products/oat-drink-barista-edition">Oatly Barista edition</a>)</>
-    },
-    {
-        metric: "100g",
-        ofMetric: false,
-        US: "1/2 cup",
-        ofUS: true,
-        name: "blueberries (optional)"
-    },
-];
-
-export default class Ingredients extends React.Component<{ variant: Variant }> {
+export default class Ingredients extends React.Component<{ variant: Variant, multiplier: number }> {
     render() {
-        const { variant } = this.props;
+        const { variant, multiplier } = this.props;
 
 
         const shortTitle = VariantTitle(variant, true);
@@ -103,7 +30,7 @@ export default class Ingredients extends React.Component<{ variant: Variant }> {
                     <h2>Ingredients</h2>
 
                     <ul>
-                        {INGREDIENTS.map((ingredient, index) => <Ingredient ingredient={ingredient} variant={variant} key={index} />)}
+                        {INGREDIENTS.map((ingredient, index) => <Ingredient ingredient={ingredient} variant={variant} multiplier={multiplier}  key={index} />)}
                     </ul>
                 </div>
                 <div className="half show-large">
@@ -131,14 +58,15 @@ export default class Ingredients extends React.Component<{ variant: Variant }> {
 interface IngredientParams {
     ingredient: RecipeIngredient;
     variant: Variant;
+    multiplier: number;
 }
 
 class Ingredient extends React.Component<IngredientParams> {
     render() {
-        const { variant: { units, vegan }, ingredient: { metric, ofMetric, US, ofUS, name, veganName, note, veganNote } } = this.props;
+        const { variant: { units, vegan }, ingredient: { metric, ofMetric, US, ofUS, name, veganName, note, veganNote }, multiplier } = this.props;
 
         const of = units === 'metric' ? ofMetric : ofUS;
-        const amount = units === 'metric' ? metric : US;
+        const [amountNo, amountName] = units === 'metric' ? metric : US;
 
 
         const children = (vegan && (typeof veganName !== 'undefined')) ? veganName : name;
@@ -150,10 +78,19 @@ class Ingredient extends React.Component<IngredientParams> {
 
 
         return <li>
-            <span className={style.amount}>{amount}</span>
+            <span className={style.amount}>{numberToString(amountNo * multiplier)} {amountName}</span>
             {of ? " of " : " "}
             <span className={style.ingredient}>{children}</span>
             {noteChild && <>{` `}{noteChild}</>}
         </li>
     }
+}
+
+function numberToString(no: number): string {
+    if(no % 1 == 0.5) {
+        no = Math.floor(no);
+        const noStr = no !== 0 ? `${no} ` : "";
+        return noStr + '1/2';
+    }
+    return no.toString()
 }

@@ -191,6 +191,14 @@ footer {
     padding-top: 1rem;
 }
 
+/** input **/
+
+input[type="number"] {
+    border: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 /** haha */
 
 @media (prefers-color-scheme: light) {
@@ -207,12 +215,13 @@ footer {
 /** dark mode colors */
 
 @media (prefers-color-scheme: dark) {
-    body {
+    body, input[type="number"] {
         color: white !important;
         background-color: #282828;
     }
 
     footer {
         border-top: 1px solid #1E1E1E;
-    }
+    } 
+
 }

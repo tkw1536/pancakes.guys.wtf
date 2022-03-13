@@ -32,11 +32,11 @@ export const VARIANT_REDIRECTS = {
 /** Variant titles are titles of a variant */
 export function VariantTitle(variant: Variant, short?: boolean): string {
     if (short) {
-        return `${variant.vegan ? 'Vegan ': ''}Pancakes${ variant.units === 'us' ? ' (non-metric / 🇺🇸 units)' : ''}`;
+        return `${variant.vegan ? 'Vegan ': ''}Pancakes${ variant.units === 'us' ? ' (freedom 🇺🇸 units)' : ''}`;
     }
 
     let prefix = '';
-    if (variant.units === 'us') prefix += 'Non-Metric ';
+    if (variant.units === 'us') prefix += 'Freedom 🇺🇸 ';
     if (variant.vegan) prefix += 'Vegan ';
 
     return `${prefix}Pancakes, served with ${variant.units !== 'us' ? 'maple ' : ''}syrup. `;
@@ -48,15 +48,20 @@ export function AllVariantURLS(): string[] {
 }
 
 /** VariantToURL returns the URL suffix corresponding to a variant */
-export function VariantToURL(variant: Variant, withPrefix?: boolean): string {
+export function VariantToURL(variant: Variant, withPrefix?: boolean, multiplier?: number): string {
     const prefix = withPrefix ? "/" : "";
     const entry = Object.entries(VARIANT_URLS).find(([_, v]) => equals(variant, v));
-    if (typeof entry === 'undefined') return prefix + DEFAULT_URL;
-    return prefix + entry[0];
+    const suffix = (multiplier ?? 1) !== 1 ? '#' + multiplier.toString() : '';
+    if (typeof entry === 'undefined') return prefix + DEFAULT_URL + suffix;
+    return prefix + entry[0] + suffix;
 }
 
 /** turns a URL into a variant */
 export function URLToVariant(url: string): Variant {
+    const hashIndex = url.indexOf('#');
+    if (hashIndex >= 0) {
+        url = url.substring(0, hashIndex);
+    }
     const variant = VARIANT_URLS[url];
     if (variant === null || typeof variant === 'undefined') return DEFAULT_VARIANT;
     return variant;
