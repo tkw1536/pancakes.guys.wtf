@@ -63,10 +63,13 @@ interface IngredientParams {
 
 class Ingredient extends React.Component<IngredientParams> {
     render() {
-        const { variant: { units, vegan }, ingredient: { metric, ofMetric, US, ofUS, name, veganName, note, veganNote }, multiplier } = this.props;
+        const { variant: { units, vegan }, ingredient: { metric, ofMetric, US, ofUS, name, veganName, note, veganNote } } = this.props;
 
         const of = units === 'metric' ? ofMetric : ofUS;
         const [amountNo, amountName] = units === 'metric' ? metric : US;
+
+        let { multiplier } = this.props;
+        multiplier = isNaN(multiplier) ? 1 : multiplier;
 
 
         const children = (vegan && (typeof veganName !== 'undefined')) ? veganName : name;

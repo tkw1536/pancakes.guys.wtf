@@ -52,17 +52,22 @@ export default class Notes extends React.Component<NotesParams> {
             forAmericansContent = <>
                 Not from the US and <Link href={VariantToURL(forAmericans, true, multiplier)}><a>confused about these units?</a></Link>
             </>;
-        }
+        } 
 
-        const noPancakes = PANCAKE_MULTIPLIER_RATIO * multiplier;
-        const noPeople = PEOPLE_MULTIPLIER_RATIO * multiplier;
+        //
+        // MULTIPLER
+        //
+
+        const aMultiplier = isNaN(multiplier) ? 1 : multiplier;
+        const noPancakes = PANCAKE_MULTIPLIER_RATIO * aMultiplier;
+        const noPeople = PEOPLE_MULTIPLIER_RATIO * aMultiplier;
         
         return <>
             <h2>Notes</h2>
 
             <ul>
                 <li>Makes &#8776; <span className={style.amount}>{noPancakes} pancakes</span> for <span className={style.amount}>
-                    <input type="number" value={noPeople} onChange={this.onChange} size={3} /> people</span>
+                    <input type="number" value={isNaN(multiplier) ? "" : noPeople} onChange={this.onChange} size={3} /> people</span>
                 </li>
                 <li>{forVegansContent}</li>
                 <li>{forAmericansContent}</li>

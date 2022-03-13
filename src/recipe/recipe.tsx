@@ -2,7 +2,8 @@ export const PEOPLE_MULTIPLIER_RATIO = 2;
 export const PANCAKE_MULTIPLIER_RATIO = 6;
 const MIN_MULTIPLIER = 1 / PEOPLE_MULTIPLIER_RATIO;
 
-export function cleanMultiplier(no: number): number {
+export function cleanMultiplier(no: number, allowOptional: boolean): number {
+    if (allowOptional && isNaN(no)) return NaN;
     if (isNaN(no) || !isFinite(no)) return MIN_MULTIPLIER;
     
     no = Math.round(no * PEOPLE_MULTIPLIER_RATIO) / PEOPLE_MULTIPLIER_RATIO; // round to nearest 1 / PEOPLE_MULTIPLIER_RATIO

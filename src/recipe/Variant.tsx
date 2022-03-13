@@ -49,6 +49,8 @@ export function AllVariantURLS(): string[] {
 
 /** VariantToURL returns the URL suffix corresponding to a variant */
 export function VariantToURL(variant: Variant, withPrefix?: boolean, multiplier?: number): string {
+    multiplier = multiplier ?? 1;
+    multiplier = isNaN(multiplier) ? 1 : multiplier;
     const prefix = withPrefix ? "/" : "";
     const entry = Object.entries(VARIANT_URLS).find(([_, v]) => equals(variant, v));
     const suffix = (multiplier ?? 1) !== 1 ? '#' + multiplier.toString() : '';

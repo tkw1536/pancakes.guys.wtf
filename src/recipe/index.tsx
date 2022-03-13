@@ -11,8 +11,10 @@ export default class RecipePage extends React.Component<{  root: string; variant
     state = { multiplier: 1 };
 
     private onChange = (multiplier: number) => {
-        this.setState({ multiplier: cleanMultiplier(multiplier) }, () => {
+        this.setState({ multiplier: cleanMultiplier(multiplier, true) }, () => {
             const { multiplier } = this.state;
+            if (isNaN(multiplier)) return;
+
             if (multiplier === 1) {
                 location.hash = '';
                 return;
@@ -24,13 +26,13 @@ export default class RecipePage extends React.Component<{  root: string; variant
     componentDidMount(): void {
         if (location.hash === "") return;
 
-        const multiplier = cleanMultiplier(parseFloat(location.hash.substring(1)));
+        const multiplier = cleanMultiplier(parseFloat(location.hash.substring(1)),false);
         this.setState({ multiplier: multiplier });
     }
 
     render() {
         const { variant, root } = this.props;
-        const { multiplier } = this.state;
+        let { multiplier } = this.state;
         return <>
             <RecipeHeader root={root} variant={variant} multiplier={multiplier} />
             <Ingredients variant={variant} multiplier={multiplier} />
