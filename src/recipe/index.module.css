@@ -11,3 +11,13 @@
     max-width: 100%;
     box-sizing: border-box; 
 }
+
+@media (prefers-color-scheme: dark) {
+    .amount {
+        color: white;
+        font-weight: bold;
+    }
+    .ingredient {
+        color: red;
+    }
+}

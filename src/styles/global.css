@@ -215,16 +215,4 @@ footer {
     footer {
         border-top: 1px solid #1E1E1E;
     }
-
-    /*
-    img {
-        filter: brightness(50%);
-        transition-property: filter;
-        transition-duration: 1s;
-    }
-
-    img:hover {
-        filter: none;
-    }
-    */
 }
