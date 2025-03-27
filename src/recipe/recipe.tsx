@@ -13,11 +13,8 @@ export function cleanMultiplier(no: number, allowOptional: boolean): number {
 }
 
 export interface RecipeIngredient {
-    metric: [number, string];
-    ofMetric?: boolean;
-
-    US: [number, string];
-    ofUS?: boolean;
+    quantity: [number, string];
+    addOf?: boolean;
 
     name?: React.ReactNode,
     veganName?: React.ReactNode,
@@ -28,50 +25,37 @@ export interface RecipeIngredient {
 
 const INGREDIENTS: RecipeIngredient[] = [
     {
-        metric: [125, 'g'],
-        US: [0.5, 'cup'],
-        ofUS: true,
+        quantity: [125, 'g'],
         name: 'flour'
     },
     {
-        metric: [2, 'tblsp.'],
-        US: [2, 'tblsp.'],
-        ofUS: true,
-        ofMetric: true,
+        quantity: [2, 'tblsp.'],
+        addOf: true,
         name: 'sugar',
     },
     {
-        metric: [2, ''],
-        US: [2, ''],
+        quantity: [2, ''],
         name: 'eggs',
         veganName: null,
     },
     {
-        metric: [0.5, 'teasp.'],
-        US: [0.5, 'teasp.'],
-        ofUS: true,
-        ofMetric: true,
+        quantity: [0.5, 'teasp.'],
+        addOf: true,
         name: 'salt'
     },
     {
-        metric: [0.5, 'package'],
-        ofMetric: true,
-        US: [1, 'tblsp.'],
-        ofUS: true,
+        quantity: [0.5, 'package'],
+        addOf: true,
         name: 'baking powder',
     },
     {
-        metric: [0.5, 'package'],
-        ofMetric: true,
-        US: [5, 'tblsp.'],
-        ofUS: true,
+        quantity: [0.5, 'package'],
+        addOf: true,
         name: 'vanilla sugar',
     },
     {
-        metric: [250, 'ml'],
-        ofMetric: true,
-        US: [1, 'cup'],
-        ofUS: true,
+        quantity: [250, 'ml'],
+        addOf: true,
         
         name: 'milk',
         veganName: 'non-dairy milk',
@@ -79,10 +63,8 @@ const INGREDIENTS: RecipeIngredient[] = [
         veganNote: <>(e.g. <a target ="_blank" rel="noopener noreferer" href="https://www.oatly.com/int/products/oat-drink-barista-edition">Oatly Barista edition</a>)</>
     },
     {
-        metric: [100, 'g'],
-        ofMetric: false,
-        US:[0.5, 'cup'],
-        ofUS: true,
+        quantity: [100, 'g'],
+        addOf: false,
         name: "blueberries (optional)"
     },
 ];

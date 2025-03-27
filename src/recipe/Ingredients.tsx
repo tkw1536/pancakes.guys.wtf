@@ -63,10 +63,7 @@ interface IngredientParams {
 
 class Ingredient extends React.Component<IngredientParams> {
     render() {
-        const { variant: { units, vegan }, ingredient: { metric, ofMetric, US, ofUS, name, veganName, note, veganNote } } = this.props;
-
-        const of = units === 'metric' ? ofMetric : ofUS;
-        const [amountNo, amountName] = units === 'metric' ? metric : US;
+        const { variant: { vegan }, ingredient: { quantity: [amountNo, amountName], addOf, name, veganName, note, veganNote } } = this.props;
 
         let { multiplier } = this.props;
         multiplier = isNaN(multiplier) ? 1 : multiplier;
@@ -82,7 +79,7 @@ class Ingredient extends React.Component<IngredientParams> {
 
         return <li>
             <span className={style.amount}>{numberToString(amountNo * multiplier)} {amountName}</span>
-            {of ? " of " : " "}
+            {addOf ? " of " : " "}
             <span className={style.ingredient}>{children}</span>
             {noteChild && <>{` `}{noteChild}</>}
         </li>

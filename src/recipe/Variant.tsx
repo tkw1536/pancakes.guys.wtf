@@ -1,12 +1,10 @@
 export default Variant;
 type Variant = Readonly<{
-    units: 'metric' | 'us',
     vegan: boolean;
 }>
 
-
 function equals(a: Variant, b: Variant): boolean {
-    return a.units === b.units && a.vegan === b.vegan;
+    return a.vegan === b.vegan;
 }
 
 /** AddVariant adds options to a variant */
@@ -15,31 +13,26 @@ export function AddVariant(base: Variant, extra: Partial<Variant>): Variant {
 }
 
 const VARIANT_URLS: Record<string, Variant> = {
-    '': { units: 'metric', vegan: false },
-    'vegan': { units: 'metric', vegan: true },
-
-    '🇺🇸': { units: 'us', vegan: false },
-    '🇺🇸/vegan': { units: 'us', vegan: true},
+    '': { vegan: false },
+    'vegan': { vegan: true },
 }
 const DEFAULT_URL: string = '';
 export const DEFAULT_VARIANT: Variant = VARIANT_URLS[DEFAULT_URL];
 
 export const VARIANT_REDIRECTS = {
     'metric': 'vegan',
-    'us': '🇺🇸/vegan',
 }
 
 /** Variant titles are titles of a variant */
 export function VariantTitle(variant: Variant, short?: boolean): string {
     if (short) {
-        return `${variant.vegan ? 'Vegan ': ''}Pancakes${ variant.units === 'us' ? ' (freedom 🇺🇸 units)' : ''}`;
+        return `${variant.vegan ? 'Vegan ': ''}Pancakes`;
     }
 
     let prefix = '';
-    if (variant.units === 'us') prefix += 'Freedom 🇺🇸 ';
     if (variant.vegan) prefix += 'Vegan ';
 
-    return `${prefix}Pancakes, served with ${variant.units !== 'us' ? 'maple ' : ''}syrup. `;
+    return `${prefix}Pancakes, served with maple syrup. `;
 }
 
 /** Returns a list of all variant URLS */

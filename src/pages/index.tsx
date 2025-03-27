@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Router from 'next/router';
 import Recipe from "../recipe";
 import { DEFAULT_VARIANT } from "../recipe/Variant";
 
