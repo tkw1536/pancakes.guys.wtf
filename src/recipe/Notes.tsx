@@ -29,11 +29,11 @@ export default class Notes extends React.Component<NotesParams> {
         let forVegansContent: React.ReactNode;
         if (forVegans.vegan) {
             forVegansContent = <>
-                For a <Link href={forVegansURL}><a>vegan variant</a></Link>, replace <span className={style.ingredient}>milk</span> with <span className={style.ingredient}>non-dairy</span> milk and remove <span className={style.ingredient}>eggs</span>.
+                For a <Link href={forVegansURL}>vegan variant</Link>, replace <span className={style.ingredient}>milk</span> with <span className={style.ingredient}>non-dairy</span> milk and remove <span className={style.ingredient}>eggs</span>.
             </>;
         } else {
             forVegansContent = <>
-                For a <Link href={forVegansURL}><a>non-vegan variant</a></Link>, you can use <span className={style.ingredient}>regular milk</span> and add <span className={style.ingredient}>eggs</span>.
+                For a <Link href={forVegansURL}>non-vegan variant</Link>, you can use <span className={style.ingredient}>regular milk</span> and add <span className={style.ingredient}>eggs</span>.
             </>;
         }
 
@@ -46,11 +46,11 @@ export default class Notes extends React.Component<NotesParams> {
         let forAmericansContent: React.ReactNode;
         if (forAmericans.units === 'us') {
             forAmericansContent = <>
-               If you're from the US, <Link href={forAmericansURL}><a>you can see this in customary units</a></Link>.
+               If you're from the US, <Link href={forAmericansURL}>you can see this in customary units</Link>.
             </>;
         } else {
             forAmericansContent = <>
-                Not from the US and <Link href={VariantToURL(forAmericans, true, multiplier)}><a>confused about these units?</a></Link>
+                Not from the US and <Link href={VariantToURL(forAmericans, true, multiplier)}>confused about these units?</Link>
             </>;
         } 
 
